@@ -8,3 +8,4 @@ client = MongoClient(os.getenv('MONGO_URI'))
 db = client['hackathon_management']
 
 members_collection = db['members']
+teams_collection = db['teams']
