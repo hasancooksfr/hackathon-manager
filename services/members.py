@@ -20,3 +20,13 @@ def createMember(member):
     )
 
     return True
+
+def getAllMembers():
+    data = list(members_collection.find({}, {
+        "_id": 0,
+        "name": 1,
+        "email_id": 1,
+        "slack_id": 1
+    }))
+
+    return data

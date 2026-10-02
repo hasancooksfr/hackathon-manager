@@ -5,3 +5,4 @@ class createMemberSchema(BaseModel):
     email_id: str
     contact_number: int
     slack_id: str
+    github_id: str
