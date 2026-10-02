@@ -103,3 +103,47 @@ def getTeamData(teamid):
         )
 
     return data
+
+def updateTeamData(teamid, team):
+    team = team.model_dump(exclude_unset=True)
+
+    if team['leader_id']:
+        leader = members_collection.find_one(
+            {
+                "memberid": team['leader_id']
+            }
+        )
+        if not leader:
+            raise HTTPException(
+                status_code=404,
+                detail="No records found for leader_id."
+            )
+
+        existing = teams_collection.find_one(
+            {
+                "team_members": team['leader_id'],
+                "teamid": {"$ne": teamid}
+            }
+        )
+        if existing:
+            raise HTTPException(
+                status_code=409,
+                detail="Leader is already in another team."
+            )
+
+    res = teams_collection.update_one(
+        {
+            "teamid": teamid
+        },
+        {
+            "$set": team
+        }
+    )
+
+    if res.matched_count == 0:
+        raise HTTPException(
+            status_code=404,
+            detail="No records found for teamid."
+        )
+
+    return True

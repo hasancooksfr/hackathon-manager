@@ -4,8 +4,10 @@ from services.teams import createTeam
 from services.teams import getAllTeams
 from services.teams import getTeamsBySearch
 from services.teams import getTeamData
+from services.teams import updateTeamData
 
 from schemas.teams import createTeamSchema
+from schemas.teams import updateTeamSchema
 
 router = APIRouter()
 
@@ -45,3 +47,13 @@ def searchTeam(
 @router.get('/{teamid}')
 def teamData(teamid: str):
     return getTeamData(teamid)
+
+@router.put('/{teamid}')
+def teamUpdate(teamid: str, team: updateTeamSchema):
+    updateTeamData(teamid, team)
+
+    return {
+        "success": True,
+        "message": "Updated team information successfully!",
+        "teamid": teamid
+    }
