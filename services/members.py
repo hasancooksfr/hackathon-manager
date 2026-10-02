@@ -30,3 +30,42 @@ def getAllMembers():
     }))
 
     return data
+
+def getMembersByQuery(
+    name: str = None,
+    email_id: str = None,
+    contact_number: int = None,
+    slack_id: str = None,
+    github_id: str = None
+):
+    query = {}
+
+    if name:
+        query['name'] = name
+
+    if email_id:
+        query['email_id'] = email_id
+
+    if contact_number:
+        query['contact_number'] = contact_number
+
+    if slack_id:
+        query['slack_id'] = slack_id
+
+    if github_id:
+        query['github_id'] = github_id
+
+    data = list(
+        members_collection.find(
+            query,
+            {
+                "_id": 0,
+                "name": 1,
+                "email_id": 1,
+                "slack_id": 1
+            }
+        )
+    )
+
+    return data
+
