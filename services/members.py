@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 from database import members_collection
 
 def createMember(member):
@@ -71,3 +72,17 @@ def getMembersByQuery(
 
     return data
 
+def getMemberData(memberid):
+    data = members_collection.find_one({
+        "memberid": memberid
+    }, {
+        "_id": 0
+    })
+
+    if not data:
+        raise HTTPException(
+            status_code=404,
+            detail="No records found with memberid."
+        )
+
+    return data

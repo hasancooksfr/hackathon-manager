@@ -3,6 +3,7 @@ from fastapi import APIRouter
 from services.members import createMember
 from services.members import getAllMembers
 from services.members import getMembersByQuery
+from services.members import getMemberData
 
 from schemas.members import createMemberSchema
 
@@ -42,3 +43,7 @@ def searchMembers(
         "message": "Fetched members with given query.",
         "data": data
     }
+
+@router.get('/{memberid}')
+def getMember(memberid: str):
+    return getMemberData(memberid)
