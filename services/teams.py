@@ -48,3 +48,16 @@ def createTeam(team):
     teams_collection.insert_one(data)
 
     return teamid
+
+def getAllTeams():
+    data = list(teams_collection.find(
+        {},
+        {
+            "_id": 0,
+            "teamid": 1,
+            "name": 1,
+            "leader_id": 1
+        }
+    ))
+
+    return data

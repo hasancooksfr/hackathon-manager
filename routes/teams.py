@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 
 from services.teams import createTeam
+from services.teams import getAllTeams
 
 from schemas.teams import createTeamSchema
 
@@ -8,7 +9,13 @@ router = APIRouter()
 
 @router.get('/')
 def home():
-    return "TEAMS"
+    data = getAllTeams()
+
+    return {
+        "success": True,
+        "message": "Fetched all teams!",
+        "data": data
+    }
 
 @router.post('/')
 def teamCreate(team: createTeamSchema):
@@ -19,3 +26,4 @@ def teamCreate(team: createTeamSchema):
         "message": "Created team successfully!",
         "teamid": teamid
     }
+
