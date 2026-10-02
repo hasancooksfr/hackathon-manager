@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 
 from services.projects import createProject
+from services.projects import getAllProjects
 
 from schemas.projects import createProjectSchema
 
@@ -8,7 +9,13 @@ router = APIRouter()
 
 @router.get('/')
 def home():
-    return "PROJECTS"
+    data= getAllProjects()
+
+    return {
+        "success": True,
+        "message": "Fetched all projects!",
+        "data": data
+    }
 
 @router.post('/')
 def projectCreate(project: createProjectSchema):

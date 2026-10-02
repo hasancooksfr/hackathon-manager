@@ -36,3 +36,18 @@ def createProject(project):
     )
 
     return project_id
+
+def getAllProjects():
+    data = list(
+        projects_collection.find(
+            {},
+            {
+                "_id": 0,
+                "projectid": 1,
+                "teamid": 1,
+                "name": 1
+            }
+        )
+    )
+
+    return data
