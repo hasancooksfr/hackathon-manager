@@ -86,3 +86,23 @@ def getMemberData(memberid):
         )
 
     return data
+
+def updateMember(memberid, member):
+    member = member.model_dump(exclude_unset=True)
+
+    res = members_collection.update_one(
+        {
+            "memberid": memberid
+        },
+        {
+            "$set": member
+        }
+    )
+
+    if res.matched_count == 0:
+        raise HTTPException(
+            status_code=404,
+            detail="No records found with memberid to update."
+        )
+
+    return True

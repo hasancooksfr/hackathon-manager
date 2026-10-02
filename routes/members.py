@@ -4,8 +4,10 @@ from services.members import createMember
 from services.members import getAllMembers
 from services.members import getMembersByQuery
 from services.members import getMemberData
+from services.members import updateMember
 
 from schemas.members import createMemberSchema
+from schemas.members import updateMemberSchema
 
 router = APIRouter()
 
@@ -47,3 +49,13 @@ def searchMembers(
 @router.get('/{memberid}')
 def getMember(memberid: str):
     return getMemberData(memberid)
+
+@router.put('/{memberid}')
+def memberUpdate(memberid: str, member: updateMemberSchema):
+    updateMember(memberid, member)
+
+    return {
+        "success": True,
+        "message": "Updated member successfully!",
+        "memberid": memberid
+    }
