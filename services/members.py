@@ -24,6 +24,7 @@ def createMember(member):
 def getAllMembers():
     data = list(members_collection.find({}, {
         "_id": 0,
+        "memberid": 1,
         "name": 1,
         "email_id": 1,
         "slack_id": 1
@@ -60,6 +61,7 @@ def getMembersByQuery(
             query,
             {
                 "_id": 0,
+                "memberid": 1,
                 "name": 1,
                 "email_id": 1,
                 "slack_id": 1
