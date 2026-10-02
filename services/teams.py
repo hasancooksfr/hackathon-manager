@@ -85,3 +85,21 @@ def getTeamsBySearch(
     ))
 
     return data
+
+def getTeamData(teamid):
+    data = teams_collection.find_one(
+        {
+            "teamid": teamid
+        },
+        {
+            "_id": 0
+        }
+    )
+
+    if not data:
+        raise HTTPException(
+            status_code=404,
+            detail="No records found for teamid."
+        )
+
+    return data
