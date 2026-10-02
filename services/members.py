@@ -106,3 +106,18 @@ def updateMember(memberid, member):
         )
 
     return True
+
+def deleteMember(memberid):
+    res = members_collection.delete_one(
+        {
+            "memberid": memberid
+        }
+    )
+
+    if res.deleted_count == 0:
+        raise HTTPException(
+            status_code=404,
+            detail="No records found for memberid."
+        )
+
+    return True

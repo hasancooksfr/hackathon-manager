@@ -5,6 +5,7 @@ from services.members import getAllMembers
 from services.members import getMembersByQuery
 from services.members import getMemberData
 from services.members import updateMember
+from services.members import deleteMember
 
 from schemas.members import createMemberSchema
 from schemas.members import updateMemberSchema
@@ -57,5 +58,15 @@ def memberUpdate(memberid: str, member: updateMemberSchema):
     return {
         "success": True,
         "message": "Updated member successfully!",
+        "memberid": memberid
+    }
+
+@router.delete('/{memberid}')
+def memberDelete(memberid: str):
+    deleteMember(memberid)
+
+    return {
+        "success": True,
+        "message": "Deleted member successfully!",
         "memberid": memberid
     }
