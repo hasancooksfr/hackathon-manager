@@ -161,3 +161,45 @@ def deleteTeam(teamid):
         )
 
     return True
+
+def addMemberToTeam(teamid, memberid):
+    member = members_collection.find_one(
+        {
+            "memberid": memberid
+        }
+    )
+    if not member:
+        raise HTTPException(
+            status_code=404,
+            detail="No records found for memberid."
+        )
+
+    existing = teams_collection.find_one(
+        {
+            "team_members": memberid
+        }
+    )
+    if existing:
+        raise HTTPException(
+            status_code=409,
+            detail="Member is already in another team."
+        )
+
+    res = teams_collection.update_one(
+        {
+            "teamid": teamid
+        },
+        {
+            "$push": {
+                "team_members": memberid
+            } 
+        }
+    )
+
+    if res.matched_count==0:
+        raise HTTPException(
+            status_code=404,
+            detail="No records found for teamid."
+        )
+
+    return True

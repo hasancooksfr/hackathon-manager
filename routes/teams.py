@@ -6,6 +6,7 @@ from services.teams import getTeamsBySearch
 from services.teams import getTeamData
 from services.teams import updateTeamData
 from services.teams import deleteTeam
+from services.teams import addMemberToTeam
 
 from schemas.teams import createTeamSchema
 from schemas.teams import updateTeamSchema
@@ -66,4 +67,13 @@ def teamDelete(teamid: str):
     return {
         "success": True,
         "message": "Deleted team successfully!"
+    }
+
+@router.post('/join/{teamid}')
+def joinTeam(teamid, memberid):
+    addMemberToTeam(teamid, memberid)
+
+    return {
+        "success": True,
+        "message": "Added memberid to team members successfully."
     }
