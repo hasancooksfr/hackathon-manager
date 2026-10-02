@@ -2,6 +2,7 @@ from fastapi import APIRouter
 
 from services.teams import createTeam
 from services.teams import getAllTeams
+from services.teams import getTeamsBySearch
 
 from schemas.teams import createTeamSchema
 
@@ -27,3 +28,15 @@ def teamCreate(team: createTeamSchema):
         "teamid": teamid
     }
 
+@router.get('/search')
+def searchTeam(
+    name: str = None,
+    member_id: str = None
+):
+    data = getTeamsBySearch(name, member_id)
+
+    return {
+        "success": True,
+        "message": "Fetched teams with given query",
+        "data": data
+    }

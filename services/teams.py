@@ -61,3 +61,27 @@ def getAllTeams():
     ))
 
     return data
+
+def getTeamsBySearch(
+    name: str = None,
+    member_id: str = None
+):
+    query = {}
+
+    if name:
+        query['name'] = name
+
+    if member_id:
+        query['team_members'] = member_id
+
+    data = list(teams_collection.find(
+        query,
+        {
+            "_id": 0,
+            "teamid": 1,
+            "name": 1,
+            "leader_id": 1
+        }
+    ))
+
+    return data
