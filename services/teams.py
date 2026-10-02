@@ -147,3 +147,17 @@ def updateTeamData(teamid, team):
         )
 
     return True
+
+def deleteTeam(teamid):
+    res = teams_collection.delete_one(
+        {
+            "teamid": teamid
+        }
+    )
+    if res.deleted_count == 0:
+        raise HTTPException(
+            status_code=404,
+            detail="No records found for teamid."
+        )
+
+    return True

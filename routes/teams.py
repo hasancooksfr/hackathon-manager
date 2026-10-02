@@ -5,6 +5,7 @@ from services.teams import getAllTeams
 from services.teams import getTeamsBySearch
 from services.teams import getTeamData
 from services.teams import updateTeamData
+from services.teams import deleteTeam
 
 from schemas.teams import createTeamSchema
 from schemas.teams import updateTeamSchema
@@ -56,4 +57,13 @@ def teamUpdate(teamid: str, team: updateTeamSchema):
         "success": True,
         "message": "Updated team information successfully!",
         "teamid": teamid
+    }
+
+@router.delete('/{teamid}')
+def teamDelete(teamid: str):
+    deleteTeam(teamid)
+
+    return {
+        "success": True,
+        "message": "Deleted team successfully!"
     }
