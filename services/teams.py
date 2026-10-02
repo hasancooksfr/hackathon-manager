@@ -203,3 +203,33 @@ def addMemberToTeam(teamid, memberid):
         )
 
     return True
+
+def removeMemberFromTeam(teamid, memberid):
+    member = teams_collection.find_one(
+        {
+            "teamid": teamid,
+            "team_members": memberid
+        }
+    )
+    if not member:
+        raise HTTPException(
+            status_code=404,
+            detail="Member is not in team."
+        )
+
+    res = teams_collection.update_one(
+        {
+            "teamid": teamid
+        },
+        {
+            "$pull": {
+                "team_members": memberid
+            }
+        }
+    )
+
+    if res.matched_count == 0:
+        raise HTTPException(
+            status_code=404,
+            detail="No records found for teamid."
+        )
