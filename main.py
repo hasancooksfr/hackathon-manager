@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
 from routes.members import router as members_router
-from routes.members import router as teams_router
+from routes.teams import router as teams_router
 
 app = FastAPI()
 
