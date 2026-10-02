@@ -20,7 +20,7 @@ def createMember(member):
         data
     )
 
-    return True
+    return memberid
 
 def getAllMembers():
     data = list(members_collection.find({}, {

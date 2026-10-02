@@ -24,11 +24,12 @@ def membersHome():
 
 @router.post('/')
 def memberCreate(data: createMemberSchema):
-    createMember(data)
+    memberid = createMember(data)
 
     return {
         "success": True,
-        "message": "Member created successfully!"
+        "message": "Member created successfully!",
+        "memberid": memberid
     }
 
 @router.get('/search')
