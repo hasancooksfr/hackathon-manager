@@ -22,3 +22,25 @@ def approveProject(projectid, review):
         )
 
     return True
+
+def rejectProjectwithRemarks(projectid, review):
+    review = review.model_dump()
+
+    res = projects_collection.update_one(
+        {
+            "projectid": projectid
+        },
+        {
+            "$set": {
+                "status": "changes-requested",
+                **review
+            }
+        }
+    )
+    if res.matched_count == 0:
+        raise HTTPException(
+            status_code=404,
+            detail="No records found for projectid."
+        )
+
+    return True

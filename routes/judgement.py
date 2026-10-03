@@ -1,8 +1,9 @@
 from fastapi import APIRouter
 
 from services.judgement import approveProject
+from services.judgement import rejectProjectwithRemarks
 
-from schemas.judgement import approveProjectSchema
+from schemas.judgement import reviewProjectSchema
 
 router = APIRouter()
 
@@ -11,11 +12,21 @@ def home():
     return "JUDGEMENT SYSTEM"
 
 @router.put('/approve/{projectid}')
-def projectApprove(projectid, review: approveProjectSchema):
+def projectApprove(projectid, review: reviewProjectSchema):
     approveProject(projectid, review)
 
     return {
         "success": True,
         "message": "Approved project successfully!",
+        "projectid": projectid
+    }
+
+@router.put('/changes-req/{projectid}')
+def changesRequest(projectid, review: reviewProjectSchema):
+    rejectProjectwithRemarks(projectid, review)
+
+    return {
+        "success": True,
+        "message": "Rejected project with requesting changes successfully!",
         "projectid": projectid
     }

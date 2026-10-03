@@ -1,5 +1,5 @@
 from pydantic import BaseModel
 
-class approveProjectSchema(BaseModel):
+class reviewProjectSchema(BaseModel):
     reviewer_name: str
     remarks: str
