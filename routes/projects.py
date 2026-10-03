@@ -6,6 +6,7 @@ from services.projects import getProjectsByTeam
 from services.projects import getProjectData
 from services.projects import getProjectByQuerySearch
 from services.projects import updateProjectData
+from services.projects import deleteProject
 
 from schemas.projects import createProjectSchema
 from schemas.projects import updateProjectSchema
@@ -67,4 +68,13 @@ def updateProject(projectid, project: updateProjectSchema):
         "success": True,
         "message": "Updated project data successfully!",
         "projectid": projectid
+    }
+
+@router.delete('/{projectid}')
+def delProject(projectid):
+    deleteProject(projectid)
+
+    return {
+        "success": True,
+        "message": "Deleted project successfully!"
     }

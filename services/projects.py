@@ -129,3 +129,17 @@ def updateProjectData(projectid, project):
         )
 
     return True
+
+def deleteProject(projectid):
+    res = projects_collection.delete_one(
+        {
+            "projectid": projectid
+        }
+    )
+    if res.deleted_count == 0:
+        raise HTTPException(
+            status_code=404,
+            detail="No records found for projectid."
+        )
+
+    return True
