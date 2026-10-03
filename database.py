@@ -9,3 +9,4 @@ db = client['hackathon_management']
 
 members_collection = db['members']
 teams_collection = db['teams']
+projects_collection = db['projects']
