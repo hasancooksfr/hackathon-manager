@@ -2,6 +2,7 @@ from fastapi import APIRouter
 
 from services.judgement import approveProject
 from services.judgement import rejectProjectwithRemarks
+from services.judgement import rejectProject
 
 from schemas.judgement import reviewProjectSchema
 
@@ -28,5 +29,15 @@ def changesRequest(projectid, review: reviewProjectSchema):
     return {
         "success": True,
         "message": "Rejected project with requesting changes successfully!",
+        "projectid": projectid
+    }
+
+@router.put('/reject/{projectid}')
+def projectReject(projectid, review: reviewProjectSchema):
+    rejectProject(projectid, review)
+
+    return {
+        "success": True,
+        "message": "Rejected project successfully!",
         "projectid": projectid
     }
