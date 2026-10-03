@@ -5,8 +5,10 @@ from services.projects import getAllProjects
 from services.projects import getProjectsByTeam
 from services.projects import getProjectData
 from services.projects import getProjectByQuerySearch
+from services.projects import updateProjectData
 
 from schemas.projects import createProjectSchema
+from schemas.projects import updateProjectSchema
 
 router = APIRouter()
 
@@ -55,4 +57,14 @@ def searchProject(
         "success": True,
         "message": "Fetched all projects by search!",
         "data": data
+    }
+
+@router.put('/{projectid}')
+def updateProject(projectid, project: updateProjectSchema):
+    updateProjectData(projectid, project)
+
+    return {
+        "success": True,
+        "message": "Updated project data successfully!",
+        "projectid": projectid
     }

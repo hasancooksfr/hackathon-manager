@@ -109,3 +109,23 @@ def getProjectByQuerySearch(
     ))
 
     return data
+
+def updateProjectData(projectid, project):
+    project = project.model_dump(exclude_unset=True)
+
+    res = projects_collection.update_one(
+        {
+            "projectid": projectid
+        },
+        {
+            "$set": project
+        }
+    )
+
+    if res.matched_count == 0:
+        raise HTTPException(
+            status_code=404,
+            detail="No records found for projectid."
+        )
+
+    return True
