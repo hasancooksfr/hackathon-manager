@@ -51,3 +51,20 @@ def getAllProjects():
     )
 
     return data
+
+def getProjectsByTeam(teamid):
+    data = list(
+        projects_collection.find(
+            {
+                "teamid": teamid
+            },
+            {
+                "_id": 0,
+                "projectid": 1,
+                "teamid": 1,
+                "name": 1
+            }
+        )
+    )
+
+    return data

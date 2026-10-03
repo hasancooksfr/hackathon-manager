@@ -2,6 +2,7 @@ from fastapi import APIRouter
 
 from services.projects import createProject
 from services.projects import getAllProjects
+from services.projects import getProjectsByTeam
 
 from schemas.projects import createProjectSchema
 
@@ -26,3 +27,14 @@ def projectCreate(project: createProjectSchema):
         "message": "Created project successfully!",
         "projectid": projectid
     }
+
+@router.get('/team/{teamid}')
+def projectByTeam(teamid):
+    data = getProjectsByTeam(teamid)
+
+    return {
+        "success": True,
+        "message": "Fetched all projects by teamid!",
+        "data": data
+    }
+    
