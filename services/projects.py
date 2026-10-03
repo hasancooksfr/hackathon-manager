@@ -68,3 +68,20 @@ def getProjectsByTeam(teamid):
     )
 
     return data
+
+def getProjectData(projectid):
+    data = projects_collection.find_one(
+        {
+            "projectid": projectid
+        },
+        {
+            "_id": 0
+        }
+    )
+    if not data:
+        raise HTTPException(
+            status_code=404,
+            detail="No records found for projectid."
+        )
+
+    return data
