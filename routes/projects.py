@@ -4,6 +4,7 @@ from services.projects import createProject
 from services.projects import getAllProjects
 from services.projects import getProjectsByTeam
 from services.projects import getProjectData
+from services.projects import getProjectByQuerySearch
 
 from schemas.projects import createProjectSchema
 
@@ -42,3 +43,16 @@ def projectByTeam(teamid):
 @router.get('/{projectid}')
 def projectData(projectid):
     return getProjectData(projectid)
+
+@router.get('/search/')
+def searchProject(
+    name: str = None,
+    status: str = None
+):
+    data = getProjectByQuerySearch(name, status)
+
+    return {
+        "success": True,
+        "message": "Fetched all projects by search!",
+        "data": data
+    }

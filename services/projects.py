@@ -85,3 +85,27 @@ def getProjectData(projectid):
         )
 
     return data
+
+def getProjectByQuerySearch(
+    name: str = None,
+    status: str = None
+):
+    query = {}
+
+    if name:
+        query['name'] = name
+
+    if status:
+        query['status'] = status
+
+    data = list(projects_collection.find(
+        query,
+        {
+            "_id": 0,
+            "projectid": 1,
+            "teamid": 1,
+            "name": 1
+        }
+    ))
+
+    return data
