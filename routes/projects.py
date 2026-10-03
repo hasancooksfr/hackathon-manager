@@ -7,9 +7,11 @@ from services.projects import getProjectData
 from services.projects import getProjectByQuerySearch
 from services.projects import updateProjectData
 from services.projects import deleteProject
+from services.projects import addDevLog
 
 from schemas.projects import createProjectSchema
 from schemas.projects import updateProjectSchema
+from schemas.projects import DevLogSchema
 
 router = APIRouter()
 
@@ -77,4 +79,12 @@ def delProject(projectid):
     return {
         "success": True,
         "message": "Deleted project successfully!"
+    }
+@router.post('/devlog/{projectid}')
+def LogDevlog(projectid, devlog: DevLogSchema):
+    addDevLog(projectid, devlog)
+
+    return {
+        "success": True,
+        "message": "Added Devlog to project!"
     }

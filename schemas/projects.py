@@ -8,3 +8,8 @@ class createProjectSchema(BaseModel):
 class updateProjectSchema(BaseModel):
     name: str | None = None
     description: str | None = None
+
+class DevLogSchema(BaseModel):
+    memberid: str 
+    title: str
+    description: str

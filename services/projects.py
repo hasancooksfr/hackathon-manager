@@ -1,5 +1,6 @@
 from fastapi import HTTPException
 from database import members_collection, projects_collection, teams_collection
+import time
 
 def createProject(project):
     project = project.model_dump()
@@ -16,7 +17,7 @@ def createProject(project):
         )
 
     project['status'] = "working"
-    project['devlogs'] = {}
+    project['devlogs'] = []
 
     last_project = projects_collection.find_one(
         {},
@@ -140,6 +141,45 @@ def deleteProject(projectid):
         raise HTTPException(
             status_code=404,
             detail="No records found for projectid."
+        )
+
+    return True
+
+def addDevLog(projectid, devlog):
+    devlog = devlog.model_dump()
+    project = projects_collection.find_one(
+        {
+            "projectid": projectid
+        }
+    )
+
+    member = teams_collection.find_one(
+        {
+            "teamid": project['teamid'],
+            "team_members": devlog['memberid'] 
+        }
+    )
+    if not member:
+        raise HTTPException(
+            status_code=409,
+            detail="Team member is not in team."
+        )
+
+    devlog['timestamp'] = int(time.time())
+    res = projects_collection.update_one(
+        {
+            "projectid": projectid
+        },
+        {
+            "$push": {
+                "devlogs": devlog
+            }
+        }
+    )
+    if res.matched_count == 0:
+        raise HTTPException(
+            status_code=404,
+            detail="No records found for project id."
         )
 
     return True
