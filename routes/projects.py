@@ -8,6 +8,7 @@ from services.projects import getProjectByQuerySearch
 from services.projects import updateProjectData
 from services.projects import deleteProject
 from services.projects import addDevLog
+from services.projects import getDevLogs
 
 from schemas.projects import createProjectSchema
 from schemas.projects import updateProjectSchema
@@ -87,4 +88,14 @@ def LogDevlog(projectid, devlog: DevLogSchema):
     return {
         "success": True,
         "message": "Added Devlog to project!"
+    }
+
+@router.get('/devlog/{projectid}')
+def fetchDevlogs(projectid):
+    data = getDevLogs(projectid)
+
+    return {
+        "success": True,
+        "message": "Fetched all devlogs with projectid.",
+        "data": data
     }

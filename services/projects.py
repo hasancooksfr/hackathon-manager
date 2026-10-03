@@ -183,3 +183,17 @@ def addDevLog(projectid, devlog):
         )
 
     return True
+
+def getDevLogs(projectid):
+    data = projects_collection.find_one(
+        {
+            "projectid": projectid
+        }
+    )
+    if not data:
+        raise HTTPException(
+            status_code=404,
+            detail="No records found for projectid."
+        )
+
+    return data['devlogs']
