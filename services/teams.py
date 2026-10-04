@@ -107,21 +107,21 @@ def getTeamData(teamid):
 def updateTeamData(teamid, team):
     team = team.model_dump(exclude_unset=True)
 
-    if team['leaderid']:
+    if team.get("leader_id"):
         leader = members_collection.find_one(
             {
-                "memberid": team['leaderid']
+                "memberid": team['leader_id']
             }
         )
         if not leader:
             raise HTTPException(
                 status_code=404,
-                detail="No records found for leaderid."
+                detail="No records found for leader_id."
             )
 
         existing = teams_collection.find_one(
             {
-                "team_members": team['leaderid'],
+                "team_members": team['leader_id'],
                 "teamid": {"$ne": teamid}
             }
         )
