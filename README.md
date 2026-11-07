@@ -10,6 +10,19 @@ The features of this system includes:
 
 Details and endpoints of these features can be found at [FEATURES.md](/FEATURES.md)
 
+## Screenshots
+There are screenshots of top 4 requests I personally like, you can see more info in [FEATURES.md](/FEATURES.md).
+
+![Post Members](/images/post_members.jpg)
+
+![Post Teams](/images/post_teams.png)
+
+![Get All Members](/images/get_all_members.png)
+
+![Get All Teams](/images/get_all_teams.png)
+
+The request URL is blurred because it is hosted URL with my database linked to it, I'll soon unhost it and put the postman collection link!
+
 ## Tech Stack
 The system is build using **Python** and **FastAPI**. It uses **MongoDB** as database.
 
